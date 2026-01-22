@@ -1,20 +1,20 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binance ATH/ATL Fibonacci Tracker</title>
+    <title>Binance ATH/ATL Fibonacci Tracker Pro</title>
     <style>
         * {
-            margin: 0;
+            margin:  0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing:  border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #fff;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color:  #fff;
             padding: 20px;
             min-height: 100vh;
         }
@@ -25,164 +25,191 @@
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #f6d365 0%, #fda085 100%);
+            font-size:  2.8em;
+            margin-bottom:  10px;
+            background:  linear-gradient(45deg, #ffd89b 0%, #19547b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 10px;
         }
 
         .update-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 18px 30px;
+            border-radius:  15px;
+            margin-bottom: 25px;
+            backdrop-filter:  blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .update-info span {
-            font-size: 0.9em;
+            font-size: 0.95em;
+            font-weight: 500;
         }
 
         .status-dot {
             display: inline-block;
             width: 10px;
             height: 10px;
-            border-radius: 50%;
-            background: #4caf50;
+            border-radius:  50%;
+            background: #00ff88;
             margin-right: 8px;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 10px #00ff88;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity:  1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
         }
 
-        .search-box {
+        . search-box {
             margin-bottom: 20px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 15px;
-            font-size: 1em;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 18px 20px;
+            font-size:  1.05em;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
-            backdrop-filter: blur(10px);
+            backdrop-filter:  blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline:  none;
+            border-color:  #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         .search-box input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.4);
         }
 
         .filter-container {
             display: grid;
-            grid-template-columns: 1fr 1fr auto auto;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius:  15px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .filter-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .filter-group label {
+        . filter-group label {
             font-size: 0.85em;
-            font-weight: 600;
-            color: #fda085;
+            font-weight:  700;
+            color: #00ff88;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .filter-group select {
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 14px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
-            font-size: 0.9em;
+            font-size: 0.95em;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .filter-group select:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .filter-group select option {
-            background: #2a2a4e;
-            color: #fff;
+        .filter-group select:focus {
+            outline:  none;
+            border-color:  #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
         }
 
         .reset-btn {
-            padding: 10px 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
             border: none;
-            border-radius: 8px;
-            background: linear-gradient(45deg, #f44336, #e91e63);
+            border-radius: 10px;
             color: #fff;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9em;
             align-self: end;
+            font-size: 0.95em;
         }
 
         .reset-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
         }
 
         .coin-count {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 1em;
-            color: #4fc3f7;
+            font-weight: 700;
+            font-size: 1.05em;
+            color: #00ff88;
             align-self: end;
+            background: rgba(0, 255, 136, 0.1);
+            padding: 12px 20px;
+            border-radius: 10px;
         }
 
         .coin-count span {
-            color: #fda085;
-            font-size: 1.2em;
-            margin: 0 5px;
+            color: #ffd89b;
+            font-size: 1.3em;
+            margin:  0 5px;
         }
 
         .table-container {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             overflow-x: auto;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(20px);
+            box-shadow:  0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         table {
             width: 100%;
-            border-collapse: collapse;
-            min-width: 1200px;
+            border-collapse:  collapse;
+            min-width:  1400px;
         }
 
         thead {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 255, 136, 0.1);
+            position: sticky;
+            top: 0;
+            z-index:  10;
         }
 
         th {
-            padding: 20px 12px;
-            text-align: left;
-            font-weight: 600;
+            padding: 22px 15px;
+            text-align:  left;
+            font-weight:  700;
             font-size: 0.9em;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            letter-spacing:  0.8px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            text-transform: uppercase;
+            color: #00ff88;
         }
 
         tbody tr {
@@ -191,64 +218,74 @@
         }
 
         tbody tr:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.01);
+            background: rgba(0, 255, 136, 0.08);
+            transform: scale(1.005);
         }
 
         td {
-            padding: 18px 12px;
-            font-size: 0.85em;
+            padding: 20px 15px;
+            font-size: 0.9em;
         }
 
         .coin-name {
-            font-weight: 600;
-            font-size: 1.1em;
-            color: #fda085;
+            font-weight: 700;
+            font-size: 1.15em;
+            color: #ffd89b;
+            text-shadow: 0 0 10px rgba(255, 216, 155, 0.3);
         }
 
         .price {
-            font-weight: 500;
+            font-weight: 600;
             color: #4fc3f7;
+            font-size: 1.05em;
+        }
+
+        . ath-value {
+            font-weight: 600;
+            color: #00ff88;
         }
 
         .badge {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: 500;
-            white-space: nowrap;
+            padding: 6px 12px;
+            border-radius:  20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            letter-spacing: 0.3px;
         }
 
         .badge-green {
-            background: rgba(76, 175, 80, 0.2);
-            color: #4caf50;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6f 100%);
+            color: #0a3d2e;
+            box-shadow: 0 3px 10px rgba(0, 255, 136, 0.3);
         }
 
         .badge-red {
-            background: rgba(244, 67, 54, 0.2);
-            color: #f44336;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
         }
 
         .fib-50 {
-            color: #ffeb3b;
+            color: #ffd89b;
             font-weight: 600;
         }
 
         .loading {
             text-align: center;
             padding: 50px;
-            font-size: 1.2em;
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .spinner {
             border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid #fda085;
+            border-top: 4px solid #00ff88;
             border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
@@ -258,46 +295,66 @@
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 1.8em;
+                font-size: 2em;
             }
             
             th, td {
-                padding: 12px 8px;
-                font-size: 0.75em;
+                padding: 12px 10px;
+                font-size: 0.8em;
             }
 
             .filter-container {
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background:  rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+        }
+
+        : :-webkit-scrollbar-thumb: hover {
+            background: rgba(0, 255, 136, 0.5);
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>📊 Binance ATH/ATL Fibonacci Tracker</h1>
+        <h1>📊 Binance ATH/ATL Fibonacci Tracker Pro</h1>
+        <p>Gelişmiş Kripto Analiz Aracı - Canlı Verilerle</p>
     </div>
 
     <div class="update-info">
-        <span><span class="status-dot"></span>Canlı Veri</span>
-        <span id="lastUpdate">Son Güncelleme: --:--:--</span>
-        <span id="nextUpdate">Sonraki: 15dk</span>
+        <span><span class="status-dot"></span>Canlı Veri (Haftalık Geçmiş)</span>
+        <span id="lastUpdate">Son Güncelleme: --: --:--</span>
+        <span id="nextUpdate">Sonraki:  15dk</span>
     </div>
 
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="🔍 Coin ara... (ör: BTC, ETH, BNB)">
+        <input type="text" id="searchInput" placeholder="🔍 Coin ara...  (ör: BTC, ETH, XLM, BNB)">
     </div>
 
     <div class="filter-container">
         <div class="filter-group">
-            <label>🎯 ATL Yakınlık Filtresi (Tüm ATL Seviyeleri)</label>
+            <label>🎯 ATL Yakınlık Filtresi</label>
             <select id="filterATL">
                 <option value="all">Tümü</option>
-                <option value="0-5">0% ile 5% arası</option>
-                <option value="5-10">5% ile 10% arası</option>
-                <option value="10-20">10% ile 20% arası</option>
-                <option value="20-50">20% ile 50% arası</option>
+                <option value="0-5">0% - 5% arası</option>
+                <option value="5-10">5% - 10% arası</option>
+                <option value="10-20">10% - 20% arası</option>
+                <option value="20-50">20% - 50% arası</option>
                 <option value="50+">50%'den fazla</option>
-                <option value="negative">Negatif (Altında)</option>
+                <option value="negative">Negatif (ATL'nin altında)</option>
             </select>
         </div>
 
@@ -305,14 +362,14 @@
             <label>📍 ATL Seviyesi</label>
             <select id="filterLevel">
                 <option value="any">Herhangi Biri</option>
-                <option value="atl1">Sadece ATL1 (0.1x)</option>
-                <option value="atl2">Sadece ATL2 (0.01x)</option>
-                <option value="atl3">Sadece ATL3 (0.001x)</option>
+                <option value="atl1">ATL1 (0.1x)</option>
+                <option value="atl2">ATL2 (0.01x)</option>
+                <option value="atl3">ATL3 (0.001x)</option>
             </select>
         </div>
 
-        <button id="resetFilters" class="reset-btn">🔄 Sıfırla</button>
-        <div class="coin-count">Gösterilen: <span id="coinCount">0</span> / <span id="totalCount">0</span></div>
+        <button id="resetFilters" class="reset-btn">🔄 Filtreleri Sıfırla</button>
+        <div class="coin-count">Gösterilen:  <span id="coinCount">0</span> / <span id="totalCount">0</span></div>
     </div>
 
     <div class="table-container">
@@ -320,16 +377,16 @@
             <thead>
                 <tr>
                     <th>Coin</th>
-                    <th>Fiyat</th>
-                    <th>ATH</th>
-                    <th>ATL (1)<br>0.1x</th>
-                    <th>Low1 %</th>
+                    <th>Güncel Fiyat</th>
+                    <th>ATH (En Yüksek)</th>
+                    <th>ATL (1) 0.1x</th>
+                    <th>Uzaklık %</th>
                     <th>Fib 50% (1)</th>
-                    <th>ATL (2)<br>0.01x</th>
-                    <th>Low2 %</th>
+                    <th>ATL (2) 0.01x</th>
+                    <th>Uzaklık %</th>
                     <th>Fib 50% (2)</th>
-                    <th>ATL (3)<br>0.001x</th>
-                    <th>Low3 %</th>
+                    <th>ATL (3) 0.001x</th>
+                    <th>Uzaklık %</th>
                     <th>Fib 50% (3)</th>
                 </tr>
             </thead>
@@ -337,7 +394,7 @@
                 <tr>
                     <td colspan="12" class="loading">
                         <div class="spinner"></div>
-                        Veriler yükleniyor...
+                        Veriler yükleniyor...  Lütfen bekleyin.
                     </td>
                 </tr>
             </tbody>
@@ -379,9 +436,9 @@
             if (price >= 1) {
                 return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             } else if (price >= 0.01) {
-                return price.toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 4});
+                return price.toLocaleString('en-US', {minimumFractionDigits:  4, maximumFractionDigits: 4});
             } else {
-                return price.toLocaleString('en-US', {minimumFractionDigits: 6, maximumFractionDigits: 8});
+                return price.toLocaleString('en-US', {minimumFractionDigits:  6, maximumFractionDigits: 8});
             }
         }
 
@@ -395,8 +452,8 @@
                         
                         const price = parseFloat(tickerData.lastPrice);
                         
-                        // ATH için günlük kline verilerini al (daha hızlı)
-                        const klinesResponse = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=1000`);
+                        // ATH için HAFTALIK kline verilerini al - daha uzun geçmiş (1000 hafta = ~19 yıl)
+                        const klinesResponse = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1w&limit=1000`);
                         const klinesData = await klinesResponse.json();
                         
                         // Tüm kline verilerinden en yüksek fiyatı bul (ATH)
@@ -417,14 +474,14 @@
                         const fib50_3 = calculateFib50(ath, atl3);
                         
                         return {
-                            symbol: symbol.replace('USDT', ''),
+                            symbol: symbol. replace('USDT', ''),
                             price: price,
                             ath: ath,
                             atl1: atl1,
                             atl1Percent: calculatePercentage(price, atl1),
                             fib50_1: fib50_1,
                             atl2: atl2,
-                            atl2Percent: calculatePercentage(price, atl2),
+                            atl2Percent:  calculatePercentage(price, atl2),
                             fib50_2: fib50_2,
                             atl3: atl3,
                             atl3Percent: calculatePercentage(price, atl3),
@@ -437,14 +494,14 @@
                 });
 
                 const results = await Promise.all(promises);
-                allCoins = results.filter(coin => coin !== null);
+                allCoins = results. filter(coin => coin !== null);
                 applyFilters();
                 updateTimestamp();
             } catch (error) {
                 console.error('Veri çekme hatası:', error);
                 document.getElementById('dataTable').innerHTML = `
                     <tr>
-                        <td colspan="12" class="loading" style="color: #f44336;">
+                        <td colspan="12" class="loading" style="color: #ff6b6b;">
                             ❌ Veri yüklenirken hata oluştu. Tekrar deneniyor...
                         </td>
                     </tr>
@@ -458,7 +515,7 @@
             if (coins.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="12" class="loading">Sonuç bulunamadı</td>
+                        <td colspan="12" class="loading">Sonuç bulunamadı 😔</td>
                     </tr>
                 `;
                 document.getElementById('coinCount').textContent = '0';
@@ -467,9 +524,9 @@
 
             tableBody.innerHTML = coins.map(coin => `
                 <tr>
-                    <td class="coin-name">${coin.symbol}</td>
+                    <td class="coin-name">${coin. symbol}</td>
                     <td class="price">$${formatPrice(coin.price)}</td>
-                    <td>$${formatPrice(coin.ath)}</td>
+                    <td class="ath-value">$${formatPrice(coin.ath)}</td>
                     
                     <td>$${formatPrice(coin.atl1)}</td>
                     <td>
@@ -481,7 +538,7 @@
                     
                     <td>$${formatPrice(coin.atl2)}</td>
                     <td>
-                        <span class="badge ${coin.atl2Percent >= 0 ? 'badge-green' : 'badge-red'}">
+                        <span class="badge ${coin.atl2Percent >= 0 ? 'badge-green' :  'badge-red'}">
                             ${coin.atl2Percent >= 0 ? '+' : ''}${coin.atl2Percent}%
                         </span>
                     </td>
@@ -489,7 +546,7 @@
                     
                     <td>$${formatPrice(coin.atl3)}</td>
                     <td>
-                        <span class="badge ${coin.atl3Percent >= 0 ? 'badge-green' : 'badge-red'}">
+                        <span class="badge ${coin.atl3Percent >= 0 ?  'badge-green' : 'badge-red'}">
                             ${coin.atl3Percent >= 0 ? '+' : ''}${coin.atl3Percent}%
                         </span>
                     </td>
@@ -505,12 +562,12 @@
             const p = parseFloat(percent);
             
             switch(filterValue) {
-                case 'all': return true;
-                case '0-5': return p >= 0 && p <= 5;
+                case 'all':  return true;
+                case '0-5':  return p >= 0 && p <= 5;
                 case '5-10': return p > 5 && p <= 10;
                 case '10-20': return p > 10 && p <= 20;
                 case '20-50': return p > 20 && p <= 50;
-                case '50+': return p > 50;
+                case '50+':  return p > 50;
                 case 'negative': return p < 0;
                 default: return true;
             }
@@ -522,20 +579,19 @@
             // Arama filtresi
             if (currentFilters.search) {
                 filtered = filtered.filter(coin => 
-                    coin.symbol.includes(currentFilters.search.toUpperCase())
+                    coin.symbol.includes(currentFilters.search. toUpperCase())
                 );
             }
 
-            // ATL filtresi - herhangi bir ATL seviyesinde eşleşme
+            // ATL filtresi
             if (currentFilters.atl !== 'all') {
                 filtered = filtered.filter(coin => {
                     const level = currentFilters.level;
                     
                     if (level === 'any') {
-                        // Herhangi bir ATL seviyesinde eşleşme varsa göster
                         return matchesFilter(coin.atl1Percent, currentFilters.atl) ||
                                matchesFilter(coin.atl2Percent, currentFilters.atl) ||
-                               matchesFilter(coin.atl3Percent, currentFilters.atl);
+                               matchesFilter(coin. atl3Percent, currentFilters.atl);
                     } else if (level === 'atl1') {
                         return matchesFilter(coin.atl1Percent, currentFilters.atl);
                     } else if (level === 'atl2') {
@@ -583,17 +639,20 @@
             applyFilters();
         });
 
+        // İlk yükleme
         fetchData();
+        // Her 15 dakikada bir güncelle
         setInterval(fetchData, 15 * 60 * 1000);
 
+        // Geri sayım sayacı
         let countdown = 15 * 60;
         setInterval(() => {
             countdown--;
             if (countdown <= 0) countdown = 15 * 60;
             const minutes = Math.floor(countdown / 60);
             const seconds = countdown % 60;
-            document.getElementById('nextUpdate').textContent = 
-                `Sonraki: ${minutes}dk ${seconds}sn`;
+            document. getElementById('nextUpdate').textContent = 
+                `Sonraki: ${minutes}dk ${seconds. toString().padStart(2, '0')}sn`;
         }, 1000);
     </script>
 </body>
