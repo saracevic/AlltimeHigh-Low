@@ -1,4 +1,4 @@
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -85,7 +85,7 @@
             padding: 20px 24px;
             font-size:  1.1em;
             border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 14px;
+            border-radius:  14px;
             background: rgba(26, 31, 58, 0.6);
             color: #fff;
             backdrop-filter: blur(20px);
@@ -212,7 +212,7 @@
         th {
             padding: 24px 16px;
             text-align:  left;
-            font-weight:  800;
+            font-weight: 800;
             font-size: 0.88em;
             letter-spacing: 1px;
             border-bottom:  2px solid rgba(102, 126, 234, 0.4);
@@ -279,7 +279,7 @@
         .badge-red {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: #fff;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+            box-shadow:  0 4px 12px rgba(239, 68, 68, 0.35);
         }
 
         .fib-50 {
@@ -311,7 +311,7 @@
         }
 
         @media (max-width: 768px) {
-            .header h1 { font-size: 2.2em; }
+            .header h1 { font-size: 2. 2em; }
             th, td { padding: 14px 12px; font-size: 0.85em; }
             .filter-container { grid-template-columns: 1fr; }
         }
@@ -325,12 +325,12 @@
 <body>
     <div class="header">
         <h1>📊 Binance ATH/ATL Fibonacci Tracker Pro</h1>
-        <p>Top 200 Kripto - Fib 50% (ATH ile 0.10000 arası) Logaritmik Hesaplama</p>
+        <p>Top 200 Kripto - CoinGecko ATH Verileri ile Fib 50% Hesaplama</p>
     </div>
 
     <div class="update-info">
-        <span><span class="status-dot"></span>Canlı Binance Verileri - ATL:  $0.10000 (Sabit)</span>
-        <span id="lastUpdate">Son Güncelleme: --: --: --</span>
+        <span><span class="status-dot"></span>CoinGecko ATH + Binance Canlı Fiyat - ATL:  $0.10000 (Sabit)</span>
+        <span id="lastUpdate">Son Güncelleme: --: --:--</span>
         <span id="nextUpdate">Sonraki:  15dk</span>
     </div>
 
@@ -362,8 +362,8 @@
                 <tr>
                     <th>#</th>
                     <th>Coin</th>
-                    <th>G��ncel Fiyat</th>
-                    <th>ATH</th>
+                    <th>Güncel Fiyat</th>
+                    <th>ATH (CoinGecko)</th>
                     <th>ATL</th>
                     <th>Fib 50%</th>
                     <th>Fib'e Uzaklık %</th>
@@ -382,14 +382,47 @@
 
     <script>
         let allCoins = [];
-        const FIXED_ATL = 0.10000; // Sabit ATL değeri
+        const FIXED_ATL = 0.10000;
 
-        let currentFilters = {
-            search: '',
-            atl: 'all'
+        // CoinGecko ID mapping (Top 200)
+        const COINGECKO_MAP = {
+            'BTC':  'bitcoin', 'ETH': 'ethereum', 'BNB': 'binancecoin', 'SOL': 'solana',
+            'XRP': 'ripple', 'ADA': 'cardano', 'DOGE': 'dogecoin', 'TRX': 'tron',
+            'LINK': 'chainlink', 'MATIC': 'matic-network', 'DOT': 'polkadot', 'LTC': 'litecoin',
+            'AVAX': 'avalanche-2', 'ATOM': 'cosmos', 'ETC': 'ethereum-classic', 'XLM': 'stellar',
+            'UNI': 'uniswap', 'ALGO': 'algorand', 'VET': 'vechain', 'FIL': 'filecoin',
+            'NEAR': 'near', 'APT': 'aptos', 'ARB': 'arbitrum', 'OP': 'optimism',
+            'AAVE': 'aave', 'MKR': 'maker', 'CRV': 'curve-dao-token', 'COMP': 'compound-governance-token',
+            'SNX': 'havven', 'SUSHI': 'sushi', '1INCH': '1inch', 'SUI': 'sui',
+            'FTM': 'fantom', 'HBAR': 'hedera-hashgraph', 'ZIL': 'zilliqa', 'ICX': 'icon',
+            'IOTA': 'iota', 'QTUM': 'qtum', 'ZEC': 'zcash', 'DASH': 'dash',
+            'WAVES': 'waves', 'ONT': 'ontology', 'RVN': 'ravencoin', 'SAND': 'the-sandbox',
+            'MANA': 'decentraland', 'AXS': 'axie-infinity', 'ENJ': 'enjincoin', 'GALA': 'gala',
+            'GMT': 'stepn', 'FLOW': 'flow', 'THETA': 'theta-token', 'CHZ': 'chiliz',
+            'IMX': 'immutable-x', 'APE': 'apecoin', 'PEPE': 'pepe', 'SHIB': 'shiba-inu',
+            'FLOKI': 'floki', 'BONK': 'bonk', 'WIF': 'dogwifcoin', 'FET': 'fetch-ai',
+            'GRT': 'the-graph', 'RENDER': 'render-token', 'ROSE': 'oasis-network', 'MASK': 'mask-network',
+            'LDO': 'lido-dao', 'CFX': 'conflux-token', 'STX': 'blockstack', 'CAKE': 'pancakeswap-token',
+            'XMR': 'monero', 'BCH': 'bitcoin-cash', 'RUNE': 'thorchain', 'ICP': 'internet-computer',
+            'TON': 'the-open-network', 'INJ': 'injective-protocol', 'SEI': 'sei-network', 'TIA': 'celestia',
+            'BLUR': 'blur', 'DYDX': 'dydx', 'RNDR': 'render-token', 'TAO': 'bittensor',
+            'WLD': 'worldcoin', 'ORDI': 'ordinals', 'SATS': '1000sats', 'AGIX': 'singularitynet',
+            'OCEAN': 'ocean-protocol', 'FXS': 'frax-share', 'RPL': 'rocket-pool', 'PENDLE': 'pendle',
+            'JTO': 'jito-governance-token', 'PYTH': 'pyth-network', 'MEME': 'memecoin', 'WOO': 'woo-network',
+            'STRK': 'starknet', 'MANTA': 'manta-network', 'DYM': 'dymension', 'PIXEL': 'pixels',
+            'PORTAL': 'portal', 'AEVO': 'aevo', 'METIS': 'metis-token', 'XAI': 'xai-blockchain',
+            'JUP': 'jupiter', 'ACE': 'fusionist', 'NFP': 'nfprompt', 'AI': 'sleepless-ai',
+            'HIFI': 'hifi-finance', 'MAVIA': 'heroes-of-mavia', 'ETHFI': 'ether-fi', 'BOME': 'book-of-meme',
+            'SLERF': 'slerf', 'ENA': 'ethena', 'W':  'wormhole', 'TNSR': 'tensor',
+            'SAGA': 'saga', 'REZ': 'renzo', 'OMNI': 'omni-network', 'BB': 'bouncebit',
+            'NOT': 'notcoin', 'IO': 'io-net', 'ZK': 'zksync', 'ZRO': 'layerzero',
+            'LISTA': 'lista-dao', 'DOGS': 'dogs', 'TON': 'toncoin', 'HMSTR': 'hamster-kombat',
+            'CATI': 'catizen', 'NEIRO': 'neiro', 'TURBO': 'turbo', 'GOAT': 'goatseus-maximus',
+            'PNUT': 'peanut-the-squirrel', 'ACT': 'achain', 'USUAL': 'usual', 'MOVE': 'movementlabs'
         };
 
-        // Logaritmik Fibonacci %50 (ATH ile sabit 0.10000 arası)
+        let currentFilters = { search: '', atl: 'all' };
+
         function calculateFib50Logarithmic(ath) {
             return Math.sqrt(ath * FIXED_ATL);
         }
@@ -399,70 +432,53 @@
         }
 
         function formatPrice(price) {
-            if (price >= 1) {
-                return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits:  2});
-            } else if (price >= 0.01) {
-                return price.toLocaleString('en-US', {minimumFractionDigits:  4, maximumFractionDigits: 4});
-            } else {
-                return price.toLocaleString('en-US', {minimumFractionDigits:  6, maximumFractionDigits: 8});
-            }
+            if (price >= 1) return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits:  2});
+            if (price >= 0.01) return price.toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 4});
+            return price.toLocaleString('en-US', {minimumFractionDigits: 6, maximumFractionDigits: 8});
         }
 
-        // Binance'dan Top 200 USDT paritesini al
         async function getTop200Coins() {
             try {
                 const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
                 const data = await response. json();
-                
-                // Sadece USDT paritelerini filtrele
-                const usdtPairs = data
-                    .filter(ticker => ticker.symbol.endsWith('USDT'))
-                    .filter(ticker => parseFloat(ticker.quoteVolume) > 0)
+                return data
+                    .filter(t => t.symbol.endsWith('USDT'))
+                    .filter(t => parseFloat(t.quoteVolume) > 0)
                     .sort((a, b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
                     .slice(0, 200)
-                    .map(ticker => ticker.symbol);
-                
-                return usdtPairs;
+                    .map(t => t.symbol. replace('USDT', ''));
             } catch (error) {
-                console.error('Top 200 coin fetch error:', error);
+                console.error('Top 200 error:', error);
                 return [];
             }
         }
 
-        // Binance'dan GERÇEK ATH çek
-        async function getRealATH(symbol) {
+        async function getATHFromCoinGecko(coinSymbol) {
+            const geckoId = COINGECKO_MAP[coinSymbol];
+            if (!geckoId) return null;
+            
             try {
-                const intervals = ['1M', '1w', '1d'];
-                let allHighs = [];
+                // CoinGecko rate limit'i aşmamak için batch request
+                await new Promise(resolve => setTimeout(resolve, 100));
                 
-                for (const interval of intervals) {
-                    const response = await fetch(
-                        `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=1000`
-                    );
-                    const data = await response.json();
-                    
-                    if (data && Array.isArray(data)) {
-                        const highs = data.map(kline => parseFloat(kline[2]));
-                        allHighs = allHighs.concat(highs);
-                    }
-                }
-                
-                const ath = allHighs.length > 0 ? Math.max(...allHighs) : null;
-                return ath;
-                
+                const response = await fetch(
+                    `https://api.coingecko.com/api/v3/coins/${geckoId}? localization=false&tickers=false&community_data=false&developer_data=false`
+                );
+                const data = await response.json();
+                return data.market_data?. ath?. usd || null;
             } catch (error) {
-                console.error(`ATH fetch error for ${symbol}:`, error);
+                console. error(`CoinGecko error for ${coinSymbol}:`, error);
                 return null;
             }
         }
 
         async function getCurrentPrice(symbol) {
             try {
-                const response = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
+                const response = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}USDT`);
                 const data = await response.json();
                 return parseFloat(data. lastPrice);
             } catch (error) {
-                console.error(`Price fetch error for ${symbol}: `, error);
+                console.error(`Price error for ${symbol}:`, error);
                 return null;
             }
         }
@@ -470,42 +486,36 @@
         async function fetchData() {
             try {
                 const top200 = await getTop200Coins();
-                
-                if (top200.length === 0) {
-                    throw new Error('Top 200 coin listesi alınamadı');
-                }
+                if (top200.length === 0) throw new Error('Top 200 alınamadı');
 
-                const promises = top200.map(async (symbol) => {
+                const promises = top200.map(async (coinSymbol) => {
                     try {
-                        const coinSymbol = symbol.replace('USDT', '');
-                        
-                        const [price, ath] = await Promise. all([
-                            getCurrentPrice(symbol),
-                            getRealATH(symbol)
+                        const [price, ath] = await Promise.all([
+                            getCurrentPrice(coinSymbol),
+                            getATHFromCoinGecko(coinSymbol)
                         ]);
 
-                        if (!price || !ath) return null;
+                        if (! price || !ath) return null;
                         
-                        // Logaritmik Fibonacci %50 (ATH ile 0.10000 arası)
                         const fib50 = calculateFib50Logarithmic(ath);
                         const fib50Percent = calculatePercentage(price, fib50);
                         
                         return {
                             symbol: coinSymbol,
-                            price:  price,
-                            ath:  ath,
+                            price: price,
+                            ath: ath,
                             atl:  FIXED_ATL,
                             fib50: fib50,
-                            fib50Percent: fib50Percent
+                            fib50Percent:  fib50Percent
                         };
                     } catch (error) {
-                        console.error(`Error fetching ${symbol}:`, error);
+                        console.error(`Error fetching ${coinSymbol}:`, error);
                         return null;
                     }
                 });
 
                 const results = await Promise.all(promises);
-                allCoins = results. filter(coin => coin !== null);
+                allCoins = results.filter(c => c !== null);
                 applyFilters();
                 updateTimestamp();
             } catch (error) {
@@ -524,11 +534,7 @@
             const tableBody = document.getElementById('dataTable');
             
             if (coins.length === 0) {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="loading">Sonuç bulunamadı 😔</td>
-                    </tr>
-                `;
+                tableBody.innerHTML = `<tr><td colspan="7" class="loading">Sonuç bulunamadı 😔</td></tr>`;
                 document.getElementById('coinCount').textContent = '0';
                 return;
             }
@@ -538,8 +544,8 @@
                     <td style="color: rgba(255, 255, 255, 0.5); font-weight: 600;">${index + 1}</td>
                     <td class="coin-name">${coin. symbol}</td>
                     <td class="price">$${formatPrice(coin.price)}</td>
-                    <td class="ath-value">$${formatPrice(coin.ath)}</td>
-                    <td class="atl-value">$${formatPrice(coin.atl)}</td>
+                    <td class="ath-value">$${formatPrice(coin. ath)}</td>
+                    <td class="atl-value">$${formatPrice(coin. atl)}</td>
                     <td class="fib-50">$${formatPrice(coin.fib50)}</td>
                     <td>
                         <span class="badge ${coin.fib50Percent >= 0 ? 'badge-green' :  'badge-red'}">
@@ -555,10 +561,9 @@
 
         function matchesFilter(percent, filterValue) {
             const p = parseFloat(percent);
-            
             switch(filterValue) {
                 case 'all':  return true;
-                case '0-5': return p >= 0 && p <= 5;
+                case '0-5':  return p >= 0 && p <= 5;
                 case '5-10': return p > 5 && p <= 10;
                 case '10-20': return p > 10 && p <= 20;
                 case '20-50': return p > 20 && p <= 50;
@@ -570,30 +575,22 @@
 
         function applyFilters() {
             let filtered = allCoins;
-
             if (currentFilters.search) {
-                filtered = filtered.filter(coin => 
-                    coin.symbol.includes(currentFilters.search.toUpperCase())
-                );
+                filtered = filtered.filter(c => c.symbol.includes(currentFilters.search.toUpperCase()));
             }
-
             if (currentFilters.atl !== 'all') {
-                filtered = filtered.filter(coin => 
-                    matchesFilter(coin.fib50Percent, currentFilters.atl)
-                );
+                filtered = filtered.filter(c => matchesFilter(c.fib50Percent, currentFilters.atl));
             }
-
             renderTable(filtered);
         }
 
         function updateTimestamp() {
-            const now = new Date();
             document.getElementById('lastUpdate').textContent = 
-                `Son Güncelleme: ${now.toLocaleTimeString('tr-TR')}`;
+                `Son Güncelleme: ${new Date().toLocaleTimeString('tr-TR')}`;
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            currentFilters. search = e.target.value;
+            currentFilters.search = e.target.value;
             applyFilters();
         });
 
@@ -603,10 +600,7 @@
         });
 
         document.getElementById('resetFilters').addEventListener('click', () => {
-            currentFilters = {
-                search: '',
-                atl: 'all'
-            };
+            currentFilters = { search: '', atl: 'all' };
             document.getElementById('searchInput').value = '';
             document.getElementById('filterATL').value = 'all';
             applyFilters();
@@ -622,7 +616,7 @@
             const minutes = Math.floor(countdown / 60);
             const seconds = countdown % 60;
             document. getElementById('nextUpdate').textContent = 
-                `Sonraki: ${minutes}dk ${seconds. toString().padStart(2, '0')}sn`;
+                `Sonraki:  ${minutes}dk ${seconds. toString().padStart(2, '0')}sn`;
         }, 1000);
     </script>
 </body>
