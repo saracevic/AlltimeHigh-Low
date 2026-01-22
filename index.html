@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background:  linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
             color: #fff;
             padding: 20px;
             min-height: 100vh;
@@ -21,78 +21,83 @@
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        .header h1 {
-            font-size:  2.8em;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #ffd89b 0%, #19547b 100%);
+        . header h1 {
+            font-size: 3em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 800;
-            letter-spacing: -1px;
+            font-weight: 900;
+            letter-spacing: -1. 5px;
         }
 
-        . header p {
-            font-size: 1em;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 10px;
+        .header p {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 8px;
+            font-weight: 500;
         }
 
         .update-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 18px 30px;
-            border-radius:  15px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px 32px;
+            border-radius:  16px;
+            margin-bottom:  28px;
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         .update-info span {
-            font-size: 0.95em;
-            font-weight: 500;
+            font-size: 1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .status-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius:  50%;
-            background: #00ff88;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 10px #00ff88;
+        . status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            box-shadow: 0 0 15px #10b981;
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(0.9); }
+            50% { opacity: 0.7; transform: scale(0.95); }
         }
 
         . search-box {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         . search-box input {
             width: 100%;
-            padding:  18px 20px;
-            font-size: 1.05em;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
+            padding: 20px 24px;
+            font-size: 1.1em;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 14px;
+            background: rgba(26, 31, 58, 0.6);
             color: #fff;
             backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: #00ff88;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            border-color: #667eea;
+            box-shadow: 0 0 25px rgba(102, 126, 234, 0.35);
+            background: rgba(26, 31, 58, 0.8);
         }
 
         .search-box input::placeholder {
@@ -101,63 +106,65 @@
 
         .filter-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom:  25px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius:  15px;
-            backdrop-filter:  blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom:  28px;
+            background: rgba(26, 31, 58, 0.4);
+            padding: 28px;
+            border-radius:  16px;
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(102, 126, 234, 0.15);
         }
 
         .filter-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 11px;
         }
 
         . filter-group label {
-            font-size: 0.85em;
-            font-weight: 700;
-            color: #00ff88;
+            font-size: 0.88em;
+            font-weight:  700;
+            color: #a5b4fc;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
-        .filter-group select {
-            padding: 12px 14px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.08);
+        . filter-group select {
+            padding: 14px 16px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            background: rgba(15, 20, 25, 0.6);
             color: #fff;
-            font-size: 0.95em;
+            font-size: 0.98em;
+            font-weight:  500;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .filter-group select:focus {
-            outline:  none;
-            border-color:  #00ff88;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.25);
         }
 
         .reset-btn {
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: #fff;
-            font-weight: 600;
-            cursor:  pointer;
+            font-weight: 700;
+            cursor: pointer;
             transition: all 0.3s ease;
             align-self: end;
-            font-size: 0.95em;
+            font-size: 0.98em;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
         }
 
-        . reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow:  0 7px 25px rgba(239, 68, 68, 0.5);
         }
 
         .coin-count {
@@ -165,127 +172,131 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.05em;
-            color: #00ff88;
+            font-size: 1.08em;
+            color: #a5b4fc;
             align-self: end;
-            background: rgba(0, 255, 136, 0.1);
-            padding: 12px 20px;
-            border-radius:  10px;
+            background: rgba(102, 126, 234, 0.15);
+            padding: 14px 22px;
+            border-radius:  12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
         }
 
         .coin-count span {
-            color: #ffd89b;
-            font-size: 1.3em;
-            margin:  0 5px;
+            color: #f093fb;
+            font-size: 1.35em;
+            margin:  0 6px;
         }
 
         . table-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            background: rgba(26, 31, 58, 0.4);
+            border-radius: 16px;
             overflow-x: auto;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(102, 126, 234, 0.15);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1400px;
+            min-width: 1500px;
         }
 
         thead {
-            background: rgba(0, 255, 136, 0.1);
+            background: rgba(102, 126, 234, 0.15);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index:  10;
         }
 
         th {
-            padding: 22px 15px;
+            padding: 24px 16px;
             text-align:  left;
-            font-weight:  700;
-            font-size: 0.9em;
-            letter-spacing: 0.8px;
-            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            font-weight:  800;
+            font-size: 0.88em;
+            letter-spacing: 1px;
+            border-bottom:  2px solid rgba(102, 126, 234, 0.4);
             text-transform: uppercase;
-            color: #00ff88;
+            color: #c7d2fe;
         }
 
         tbody tr {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.08);
             transition: all 0.3s ease;
         }
 
         tbody tr:hover {
-            background: rgba(0, 255, 136, 0.08);
-            transform: scale(1.005);
+            background:  rgba(102, 126, 234, 0.12);
+            transform: scale(1.008);
         }
 
         td {
-            padding: 20px 15px;
-            font-size: 0.9em;
+            padding: 22px 16px;
+            font-size: 0.95em;
+            font-weight: 500;
         }
 
         .coin-name {
-            font-weight: 700;
-            font-size: 1.15em;
-            color: #ffd89b;
-            text-shadow: 0 0 10px rgba(255, 216, 155, 0.3);
+            font-weight: 800;
+            font-size: 1.2em;
+            color: #f093fb;
+            text-shadow: 0 0 12px rgba(240, 147, 251, 0.4);
         }
 
         .price {
-            font-weight: 600;
-            color: #4fc3f7;
-            font-size: 1.05em;
+            font-weight: 700;
+            color: #60a5fa;
+            font-size: 1.08em;
         }
 
         . ath-value {
-            font-weight: 600;
-            color: #00ff88;
+            font-weight:  700;
+            color: #10b981;
+            font-size: 1.05em;
         }
 
         .badge {
             display: inline-block;
-            padding: 6px 12px;
-            border-radius:  20px;
-            font-weight: 700;
-            font-size: 0.9em;
-            letter-spacing: 0.3px;
+            padding: 7px 14px;
+            border-radius:  22px;
+            font-weight: 800;
+            font-size: 0.92em;
+            letter-spacing: 0.4px;
         }
 
         .badge-green {
-            background: linear-gradient(135deg, #00ff88 0%, #00cc6f 100%);
-            color: #0a3d2e;
-            box-shadow: 0 3px 10px rgba(0, 255, 136, 0.3);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
         }
 
         .badge-red {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: #fff;
-            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+            box-shadow:  0 4px 12px rgba(239, 68, 68, 0.35);
         }
 
         .fib-50 {
-            color: #ffd89b;
-            font-weight: 600;
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 1.02em;
         }
 
-        .loading {
+        . loading {
             text-align: center;
-            padding: 50px;
-            font-size: 1.1em;
-            color: rgba(255, 255, 255, 0.7);
+            padding: 60px;
+            font-size: 1.15em;
+            color: rgba(255, 255, 255, 0.75);
         }
 
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid #00ff88;
+            border: 5px solid rgba(102, 126, 234, 0.2);
+            border-top: 5px solid #667eea;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            width: 55px;
+            height: 55px;
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 22px;
         }
 
         @keyframes spin {
@@ -294,48 +305,26 @@
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            th, td {
-                padding: 12px 10px;
-                font-size: 0.8em;
-            }
-
-            .filter-container {
-                grid-template-columns: 1fr;
-            }
+            .header h1 { font-size: 2. 2em; }
+            th, td { padding: 14px 12px; font-size: 0.85em; }
+            .filter-container { grid-template-columns: 1fr; }
         }
 
-        : :-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background:  rgba(255, 255, 255, 0.05);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(0, 255, 136, 0.3);
-            border-radius: 10px;
-        }
-
-        : :-webkit-scrollbar-thumb: hover {
-            background: rgba(0, 255, 136, 0.5);
-        }
+        : :-webkit-scrollbar { width: 12px; height: 12px; }
+        ::-webkit-scrollbar-track { background: rgba(26, 31, 58, 0.4); }
+        ::-webkit-scrollbar-thumb { background: rgba(102, 126, 234, 0.4); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(102, 126, 234, 0.6); }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>📊 Binance ATH/ATL Fibonacci Tracker Pro</h1>
-        <p>Gelişmiş Kripto Analiz Aracı - Gerçek ATH Verileriyle (CoinGecko)</p>
+        <p>Profesyonel Kripto Analiz - Binance Gerçek ATH Verileri ile Fibonacci Hesaplama</p>
     </div>
 
     <div class="update-info">
-        <span><span class="status-dot"></span>Canlı Veri (Gerçek ATH)</span>
-        <span id="lastUpdate">Son Güncelleme: --: --:--</span>
+        <span><span class="status-dot"></span>Canlı Binance Verileri</span>
+        <span id="lastUpdate">Son Güncelleme: --: --: --</span>
         <span id="nextUpdate">Sonraki:  15dk</span>
     </div>
 
@@ -361,7 +350,7 @@
             <label>📍 ATL Seviyesi</label>
             <select id="filterLevel">
                 <option value="any">Herhangi Biri</option>
-                <option value="atl1">ATL1 (0. 1x)</option>
+                <option value="atl1">ATL1 (0.1x)</option>
                 <option value="atl2">ATL2 (0.01x)</option>
                 <option value="atl3">ATL3 (0.001x)</option>
             </select>
@@ -377,7 +366,7 @@
                 <tr>
                     <th>Coin</th>
                     <th>Güncel Fiyat</th>
-                    <th>ATH (Gerçek)</th>
+                    <th>ATH (Binance)</th>
                     <th>ATL (1) 0.1x</th>
                     <th>Uzaklık %</th>
                     <th>Fib 50% (1)</th>
@@ -393,7 +382,7 @@
                 <tr>
                     <td colspan="12" class="loading">
                         <div class="spinner"></div>
-                        Veriler yükleniyor...  Lütfen bekleyin.
+                        Veriler yükleniyor...  Lütfen bekleyin. 
                     </td>
                 </tr>
             </tbody>
@@ -403,78 +392,6 @@
     <script>
         let allCoins = [];
         
-        // CoinGecko ID mapping
-        const COIN_GECKO_IDS = {
-            'BTC': 'bitcoin',
-            'ETH': 'ethereum',
-            'BNB': 'binancecoin',
-            'SOL': 'solana',
-            'XRP': 'ripple',
-            'ADA':  'cardano',
-            'DOGE': 'dogecoin',
-            'TRX': 'tron',
-            'LINK': 'chainlink',
-            'MATIC': 'matic-network',
-            'DOT': 'polkadot',
-            'LTC': 'litecoin',
-            'AVAX': 'avalanche-2',
-            'ATOM': 'cosmos',
-            'ETC': 'ethereum-classic',
-            'XLM': 'stellar',
-            'UNI': 'uniswap',
-            'ALGO': 'algorand',
-            'VET': 'vechain',
-            'FIL': 'filecoin',
-            'NEAR': 'near',
-            'APT': 'aptos',
-            'ARB': 'arbitrum',
-            'OP': 'optimism',
-            'AAVE': 'aave',
-            'MKR': 'maker',
-            'CRV': 'curve-dao-token',
-            'COMP': 'compound-governance-token',
-            'SNX': 'havven',
-            'SUSHI': 'sushi',
-            '1INCH': '1inch',
-            'SUI': 'sui',
-            'FTM': 'fantom',
-            'HBAR': 'hedera-hashgraph',
-            'ZIL': 'zilliqa',
-            'ICX': 'icon',
-            'IOTA': 'iota',
-            'QTUM': 'qtum',
-            'ZEC': 'zcash',
-            'DASH': 'dash',
-            'WAVES': 'waves',
-            'ONT': 'ontology',
-            'RVN': 'ravencoin',
-            'SAND': 'the-sandbox',
-            'MANA': 'decentraland',
-            'AXS': 'axie-infinity',
-            'ENJ': 'enjincoin',
-            'GALA': 'gala',
-            'GMT': 'stepn',
-            'FLOW': 'flow',
-            'THETA': 'theta-token',
-            'CHZ': 'chiliz',
-            'IMX': 'immutable-x',
-            'APE': 'apecoin',
-            'PEPE': 'pepe',
-            'SHIB': 'shiba-inu',
-            'FLOKI': 'floki',
-            'BONK': 'bonk',
-            'WIF': 'dogwifcoin',
-            'FET': 'fetch-ai',
-            'GRT': 'the-graph',
-            'RENDER': 'render-token',
-            'ROSE': 'oasis-network',
-            'MASK': 'mask-network',
-            'LDO': 'lido-dao',
-            'CFX': 'conflux-token',
-            'STX': 'blockstack',
-            'CAKE': 'pancakeswap-token'
-        };
-
         const POPULAR_COINS = [
             'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'ADAUSDT', 'DOGEUSDT', 'TRXUSDT',
             'LINKUSDT', 'MATICUSDT', 'DOTUSDT', 'LTCUSDT', 'AVAXUSDT', 'ATOMUSDT', 'ETCUSDT', 'XLMUSDT',
@@ -492,12 +409,13 @@
 
         let currentFilters = {
             search: '',
-            atl:  'all',
-            level:  'any'
+            atl: 'all',
+            level: 'any'
         };
 
-        function calculateFib50(ath, atl) {
-            return ath - ((ath - atl) * 0.5);
+        function calculateFib50(high, low) {
+            // Fibonacci %50 = High - ((High - Low) × 0.5)
+            return high - ((high - low) * 0.5);
         }
 
         function calculatePercentage(current, target) {
@@ -514,30 +432,42 @@
             }
         }
 
-        // CoinGecko'dan ATH al
-        async function getATHFromCoinGecko(coinSymbol) {
+        // Binance'dan TÜM geçmiş verileri çekerek gerçek ATH/ATL bul
+        async function getRealATH(symbol) {
             try {
-                const geckoId = COIN_GECKO_IDS[coinSymbol];
-                if (!geckoId) return null;
+                // Birden fazla timeframe'den veri çek ve birleştir
+                const intervals = ['1M', '1w', '1d']; // Aylık, haftalık, günlük
+                let allHighs = [];
                 
-                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${geckoId}?localization=false&tickers=false&community_data=false&developer_data=false`);
-                const data = await response.json();
+                for (const interval of intervals) {
+                    const response = await fetch(
+                        `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=1000`
+                    );
+                    const data = await response.json();
+                    
+                    if (data && Array.isArray(data)) {
+                        const highs = data.map(kline => parseFloat(kline[2])); // High price
+                        allHighs = allHighs.concat(highs);
+                    }
+                }
                 
-                return data.market_data?. ath?. usd || null;
+                // Tüm verilerden maksimum değeri bul
+                const ath = allHighs.length > 0 ? Math.max(...allHighs) : null;
+                return ath;
+                
             } catch (error) {
-                console. error(`CoinGecko ATH error for ${coinSymbol}:`, error);
+                console.error(`ATH fetch error for ${symbol}:`, error);
                 return null;
             }
         }
 
-        // Binance'dan güncel fiyat al
         async function getCurrentPrice(symbol) {
             try {
                 const response = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
                 const data = await response.json();
                 return parseFloat(data. lastPrice);
             } catch (error) {
-                console.error(`Binance price error for ${symbol}:`, error);
+                console.error(`Price fetch error for ${symbol}: `, error);
                 return null;
             }
         }
@@ -551,15 +481,18 @@
                         // Paralel olarak fiyat ve ATH çek
                         const [price, ath] = await Promise.all([
                             getCurrentPrice(symbol),
-                            getATHFromCoinGecko(coinSymbol)
+                            getRealATH(symbol)
                         ]);
 
                         if (! price || !ath) return null;
                         
+                        // ATL seviyelerini hesapla
                         const atl1 = ath * 0.1;
                         const atl2 = ath * 0.01;
                         const atl3 = ath * 0.001;
                         
+                        // Fibonacci %50 seviyelerini DOĞRU hesapla
+                        // Fib50(ATH, ATL) = ATH - ((ATH - ATL) × 0.5)
                         const fib50_1 = calculateFib50(ath, atl1);
                         const fib50_2 = calculateFib50(ath, atl2);
                         const fib50_3 = calculateFib50(ath, atl3);
@@ -585,14 +518,14 @@
                 });
 
                 const results = await Promise.all(promises);
-                allCoins = results. filter(coin => coin !== null);
+                allCoins = results.filter(coin => coin !== null);
                 applyFilters();
                 updateTimestamp();
             } catch (error) {
                 console.error('Veri çekme hatası:', error);
                 document.getElementById('dataTable').innerHTML = `
                     <tr>
-                        <td colspan="12" class="loading" style="color: #ff6b6b;">
+                        <td colspan="12" class="loading" style="color: #ef4444;">
                             ❌ Veri yüklenirken hata oluştu. Tekrar deneniyor...
                         </td>
                     </tr>
@@ -622,7 +555,7 @@
                     <td>$${formatPrice(coin.atl1)}</td>
                     <td>
                         <span class="badge ${coin.atl1Percent >= 0 ? 'badge-green' : 'badge-red'}">
-                            ${coin.atl1Percent >= 0 ? '+' : ''}${coin.atl1Percent}%
+                            ${coin. atl1Percent >= 0 ? '+' : ''}${coin.atl1Percent}%
                         </span>
                     </td>
                     <td class="fib-50">$${formatPrice(coin.fib50_1)}</td>
@@ -654,8 +587,8 @@
             
             switch(filterValue) {
                 case 'all':  return true;
-                case '0-5': return p >= 0 && p <= 5;
-                case '5-10':  return p > 5 && p <= 10;
+                case '0-5':  return p >= 0 && p <= 5;
+                case '5-10': return p > 5 && p <= 10;
                 case '10-20': return p > 10 && p <= 20;
                 case '20-50': return p > 20 && p <= 50;
                 case '50+':  return p > 50;
@@ -682,7 +615,7 @@
                                matchesFilter(coin.atl2Percent, currentFilters.atl) ||
                                matchesFilter(coin. atl3Percent, currentFilters.atl);
                     } else if (level === 'atl1') {
-                        return matchesFilter(coin.atl1Percent, currentFilters. atl);
+                        return matchesFilter(coin.atl1Percent, currentFilters.atl);
                     } else if (level === 'atl2') {
                         return matchesFilter(coin.atl2Percent, currentFilters.atl);
                     } else if (level === 'atl3') {
@@ -707,7 +640,7 @@
         });
 
         document.getElementById('filterATL').addEventListener('change', (e) => {
-            currentFilters. atl = e.target.value;
+            currentFilters.atl = e.target.value;
             applyFilters();
         });
 
