@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background:  linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
             color: #fff;
             padding: 20px;
             min-height: 100vh;
@@ -48,7 +48,7 @@
             background: rgba(102, 126, 234, 0.1);
             padding: 20px 32px;
             border-radius:  16px;
-            margin-bottom: 28px;
+            margin-bottom:  28px;
             backdrop-filter: blur(25px);
             border: 1px solid rgba(102, 126, 234, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -82,8 +82,8 @@
 
         . search-box input {
             width: 100%;
-            padding:  20px 24px;
-            font-size: 1.1em;
+            padding: 20px 24px;
+            font-size:  1.1em;
             border: 2px solid rgba(102, 126, 234, 0.2);
             border-radius:  14px;
             background: rgba(26, 31, 58, 0.6);
@@ -124,7 +124,7 @@
 
         . filter-group label {
             font-size: 0.88em;
-            font-weight:  700;
+            font-weight: 700;
             color: #a5b4fc;
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -137,9 +137,9 @@
             background: rgba(15, 20, 25, 0.6);
             color: #fff;
             font-size: 0.98em;
-            font-weight: 500;
+            font-weight:  500;
             cursor: pointer;
-            transition:  all 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .filter-group select:focus {
@@ -199,7 +199,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1500px;
+            min-width: 1200px;
         }
 
         thead {
@@ -215,7 +215,7 @@
             font-weight:  800;
             font-size: 0.88em;
             letter-spacing: 1px;
-            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+            border-bottom:  2px solid rgba(102, 126, 234, 0.4);
             text-transform: uppercase;
             color: #c7d2fe;
         }
@@ -236,7 +236,7 @@
             font-weight: 500;
         }
 
-        .coin-name {
+        . coin-name {
             font-weight: 800;
             font-size: 1.2em;
             color: #f093fb;
@@ -255,7 +255,13 @@
             font-size: 1.05em;
         }
 
-        . badge {
+        . atl-value {
+            font-weight: 700;
+            color: #ef4444;
+            font-size: 1.05em;
+        }
+
+        .badge {
             display: inline-block;
             padding: 7px 14px;
             border-radius:  22px;
@@ -319,22 +325,22 @@
 <body>
     <div class="header">
         <h1>📊 Binance ATH/ATL Fibonacci Tracker Pro</h1>
-        <p>Profesyonel Kripto Analiz - TradingView Logaritmik Fibonacci Hesaplama</p>
+        <p>TradingView Tarzı Gerçek ATH/ATL ve Logaritmik Fibonacci Hesaplama</p>
     </div>
 
     <div class="update-info">
-        <span><span class="status-dot"></span>Canlı Binance Verileri (Logaritmik Fib)</span>
-        <span id="lastUpdate">Son Güncelleme: --: --:--</span>
+        <span><span class="status-dot"></span>Canlı Binance Verileri</span>
+        <span id="lastUpdate">Son Güncelleme: --: --: --</span>
         <span id="nextUpdate">Sonraki:  15dk</span>
     </div>
 
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="🔍 Coin ara...  (ör:  BTC, ETH, XLM, TRX, BNB)">
+        <input type="text" id="searchInput" placeholder="🔍 Coin ara...  (ör: BTC, ETH, XLM, TRX, BNB)">
     </div>
 
     <div class="filter-container">
         <div class="filter-group">
-            <label>🎯 ATL Yakınlık Filtresi</label>
+            <label>🎯 Fib Yakınlık Filtresi</label>
             <select id="filterATL">
                 <option value="all">Tümü</option>
                 <option value="0-5">0% - 5% arası</option>
@@ -342,17 +348,7 @@
                 <option value="10-20">10% - 20% arası</option>
                 <option value="20-50">20% - 50% arası</option>
                 <option value="50+">50%'den fazla</option>
-                <option value="negative">Negatif (ATL'nin altında)</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>📍 ATL Seviyesi</label>
-            <select id="filterLevel">
-                <option value="any">Herhangi Biri</option>
-                <option value="atl1">ATL1 (0. 1x)</option>
-                <option value="atl2">ATL2 (0.01x)</option>
-                <option value="atl3">ATL3 (0.001x)</option>
+                <option value="negative">Negatif (Altında)</option>
             </select>
         </div>
 
@@ -366,21 +362,15 @@
                 <tr>
                     <th>Coin</th>
                     <th>Güncel Fiyat</th>
-                    <th>ATH (Binance)</th>
-                    <th>ATL (1) 0.1x</th>
-                    <th>Uzaklık %</th>
-                    <th>Fib 50% (1)</th>
-                    <th>ATL (2) 0.01x</th>
-                    <th>Uzaklık %</th>
-                    <th>Fib 50% (2)</th>
-                    <th>ATL (3) 0.001x</th>
-                    <th>Uzaklık %</th>
-                    <th>Fib 50% (3)</th>
+                    <th>ATH</th>
+                    <th>ATL</th>
+                    <th>Fib 50% (Log)</th>
+                    <th>Fib'e Uzaklık %</th>
                 </tr>
             </thead>
             <tbody id="dataTable">
                 <tr>
-                    <td colspan="12" class="loading">
+                    <td colspan="6" class="loading">
                         <div class="spinner"></div>
                         Veriler yükleniyor...  Lütfen bekleyin. 
                     </td>
@@ -409,13 +399,11 @@
 
         let currentFilters = {
             search: '',
-            atl: 'all',
-            level: 'any'
+            atl: 'all'
         };
 
-        // LOGARİTMİK Fibonacci %50 hesaplama (TradingView tarzı)
+        // Logaritmik Fibonacci %50
         function calculateFib50Logarithmic(high, low) {
-            // Geometrik ortalama = sqrt(high × low)
             return Math.sqrt(high * low);
         }
 
@@ -433,11 +421,12 @@
             }
         }
 
-        // Binance'dan TÜM geçmiş verileri çekerek gerçek ATH bul
-        async function getRealATH(symbol) {
+        // Binance'dan GERÇEK ATH ve ATL çek
+        async function getRealATHAndATL(symbol) {
             try {
                 const intervals = ['1M', '1w', '1d'];
                 let allHighs = [];
+                let allLows = [];
                 
                 for (const interval of intervals) {
                     const response = await fetch(
@@ -446,17 +435,21 @@
                     const data = await response.json();
                     
                     if (data && Array.isArray(data)) {
-                        const highs = data.map(kline => parseFloat(kline[2]));
+                        const highs = data.map(kline => parseFloat(kline[2])); // High
+                        const lows = data.map(kline => parseFloat(kline[3]));  // Low
                         allHighs = allHighs.concat(highs);
+                        allLows = allLows.concat(lows);
                     }
                 }
                 
                 const ath = allHighs.length > 0 ? Math.max(...allHighs) : null;
-                return ath;
+                const atl = allLows.length > 0 ? Math.min(...allLows) : null;
+                
+                return { ath, atl };
                 
             } catch (error) {
-                console.error(`ATH fetch error for ${symbol}:`, error);
-                return null;
+                console.error(`ATH/ATL fetch error for ${symbol}:`, error);
+                return { ath: null, atl: null };
             }
         }
 
@@ -466,7 +459,7 @@
                 const data = await response.json();
                 return parseFloat(data. lastPrice);
             } catch (error) {
-                console.error(`Price fetch error for ${symbol}: `, error);
+                console.error(`Price fetch error for ${symbol}:`, error);
                 return null;
             }
         }
@@ -477,36 +470,24 @@
                     try {
                         const coinSymbol = symbol.replace('USDT', '');
                         
-                        const [price, ath] = await Promise.all([
+                        const [price, { ath, atl }] = await Promise.all([
                             getCurrentPrice(symbol),
-                            getRealATH(symbol)
+                            getRealATHAndATL(symbol)
                         ]);
 
-                        if (! price || !ath) return null;
+                        if (! price || !ath || !atl) return null;
                         
-                        // ATL seviyelerini hesapla
-                        const atl1 = ath * 0.1;
-                        const atl2 = ath * 0.01;
-                        const atl3 = ath * 0.001;
-                        
-                        // LOGARİTMİK Fibonacci %50 seviyelerini hesapla
-                        const fib50_1 = calculateFib50Logarithmic(ath, atl1);
-                        const fib50_2 = calculateFib50Logarithmic(ath, atl2);
-                        const fib50_3 = calculateFib50Logarithmic(ath, atl3);
+                        // Logaritmik Fibonacci %50
+                        const fib50 = calculateFib50Logarithmic(ath, atl);
+                        const fib50Percent = calculatePercentage(price, fib50);
                         
                         return {
-                            symbol: coinSymbol,
+                            symbol:  coinSymbol,
                             price:  price,
-                            ath: ath,
-                            atl1: atl1,
-                            atl1Percent: calculatePercentage(price, atl1),
-                            fib50_1: fib50_1,
-                            atl2: atl2,
-                            atl2Percent:  calculatePercentage(price, atl2),
-                            fib50_2: fib50_2,
-                            atl3: atl3,
-                            atl3Percent: calculatePercentage(price, atl3),
-                            fib50_3: fib50_3
+                            ath:  ath,
+                            atl: atl,
+                            fib50: fib50,
+                            fib50Percent:  fib50Percent
                         };
                     } catch (error) {
                         console.error(`Error fetching ${symbol}:`, error);
@@ -522,7 +503,7 @@
                 console.error('Veri çekme hatası:', error);
                 document.getElementById('dataTable').innerHTML = `
                     <tr>
-                        <td colspan="12" class="loading" style="color: #ef4444;">
+                        <td colspan="6" class="loading" style="color: #ef4444;">
                             ❌ Veri yüklenirken hata oluştu. Tekrar deneniyor...
                         </td>
                     </tr>
@@ -536,7 +517,7 @@
             if (coins.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="12" class="loading">Sonuç bulunamadı 😔</td>
+                        <td colspan="6" class="loading">Sonuç bulunamadı 😔</td>
                     </tr>
                 `;
                 document.getElementById('coinCount').textContent = '0';
@@ -547,31 +528,14 @@
                 <tr>
                     <td class="coin-name">${coin. symbol}</td>
                     <td class="price">$${formatPrice(coin.price)}</td>
-                    <td class="ath-value">$${formatPrice(coin. ath)}</td>
-                    
-                    <td>$${formatPrice(coin.atl1)}</td>
+                    <td class="ath-value">$${formatPrice(coin.ath)}</td>
+                    <td class="atl-value">$${formatPrice(coin.atl)}</td>
+                    <td class="fib-50">$${formatPrice(coin.fib50)}</td>
                     <td>
-                        <span class="badge ${coin.atl1Percent >= 0 ? 'badge-green' : 'badge-red'}">
-                            ${coin. atl1Percent >= 0 ? '+' : ''}${coin.atl1Percent}%
+                        <span class="badge ${coin.fib50Percent >= 0 ? 'badge-green' : 'badge-red'}">
+                            ${coin.fib50Percent >= 0 ? '+' : ''}${coin.fib50Percent}%
                         </span>
                     </td>
-                    <td class="fib-50">$${formatPrice(coin.fib50_1)}</td>
-                    
-                    <td>$${formatPrice(coin.atl2)}</td>
-                    <td>
-                        <span class="badge ${coin.atl2Percent >= 0 ? 'badge-green' : 'badge-red'}">
-                            ${coin.atl2Percent >= 0 ? '+' : ''}${coin.atl2Percent}%
-                        </span>
-                    </td>
-                    <td class="fib-50">$${formatPrice(coin.fib50_2)}</td>
-                    
-                    <td>$${formatPrice(coin.atl3)}</td>
-                    <td>
-                        <span class="badge ${coin.atl3Percent >= 0 ? 'badge-green' : 'badge-red'}">
-                            ${coin.atl3Percent >= 0 ? '+' : ''}${coin.atl3Percent}%
-                        </span>
-                    </td>
-                    <td class="fib-50">$${formatPrice(coin.fib50_3)}</td>
                 </tr>
             `).join('');
 
@@ -585,7 +549,7 @@
             switch(filterValue) {
                 case 'all':  return true;
                 case '0-5': return p >= 0 && p <= 5;
-                case '5-10':  return p > 5 && p <= 10;
+                case '5-10': return p > 5 && p <= 10;
                 case '10-20': return p > 10 && p <= 20;
                 case '20-50': return p > 20 && p <= 50;
                 case '50+':  return p > 50;
@@ -599,27 +563,14 @@
 
             if (currentFilters.search) {
                 filtered = filtered.filter(coin => 
-                    coin.symbol.includes(currentFilters.search. toUpperCase())
+                    coin.symbol.includes(currentFilters.search.toUpperCase())
                 );
             }
 
             if (currentFilters.atl !== 'all') {
-                filtered = filtered.filter(coin => {
-                    const level = currentFilters.level;
-                    
-                    if (level === 'any') {
-                        return matchesFilter(coin.atl1Percent, currentFilters.atl) ||
-                               matchesFilter(coin.atl2Percent, currentFilters.atl) ||
-                               matchesFilter(coin. atl3Percent, currentFilters.atl);
-                    } else if (level === 'atl1') {
-                        return matchesFilter(coin.atl1Percent, currentFilters.atl);
-                    } else if (level === 'atl2') {
-                        return matchesFilter(coin.atl2Percent, currentFilters.atl);
-                    } else if (level === 'atl3') {
-                        return matchesFilter(coin.atl3Percent, currentFilters.atl);
-                    }
-                    return true;
-                });
+                filtered = filtered.filter(coin => 
+                    matchesFilter(coin.fib50Percent, currentFilters.atl)
+                );
             }
 
             renderTable(filtered);
@@ -628,33 +579,26 @@
         function updateTimestamp() {
             const now = new Date();
             document.getElementById('lastUpdate').textContent = 
-                `Son Güncelleme: ${now. toLocaleTimeString('tr-TR')}`;
+                `Son Güncelleme: ${now.toLocaleTimeString('tr-TR')}`;
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            currentFilters. search = e.target.value;
+            currentFilters.search = e.target.value;
             applyFilters();
         });
 
         document.getElementById('filterATL').addEventListener('change', (e) => {
-            currentFilters.atl = e. target.value;
-            applyFilters();
-        });
-
-        document.getElementById('filterLevel').addEventListener('change', (e) => {
-            currentFilters.level = e.target.value;
+            currentFilters.atl = e.target.value;
             applyFilters();
         });
 
         document.getElementById('resetFilters').addEventListener('click', () => {
             currentFilters = {
                 search: '',
-                atl: 'all',
-                level: 'any'
+                atl: 'all'
             };
             document.getElementById('searchInput').value = '';
             document.getElementById('filterATL').value = 'all';
-            document.getElementById('filterLevel').value = 'any';
             applyFilters();
         });
 
@@ -668,7 +612,7 @@
             const minutes = Math.floor(countdown / 60);
             const seconds = countdown % 60;
             document. getElementById('nextUpdate').textContent = 
-                `Sonraki:  ${minutes}dk ${seconds. toString().padStart(2, '0')}sn`;
+                `Sonraki: ${minutes}dk ${seconds. toString().padStart(2, '0')}sn`;
         }, 1000);
     </script>
 </body>
