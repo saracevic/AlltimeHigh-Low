@@ -81,6 +81,81 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        .filter-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #fda085;
+        }
+
+        .filter-group select {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .filter-group select option {
+            background: #2a2a4e;
+            color: #fff;
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #f44336, #e91e63);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        .coin-count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1em;
+            color: #4fc3f7;
+        }
+
+        .coin-count span {
+            color: #fda085;
+            font-size: 1.2em;
+            margin: 0 5px;
+        }
+
         .table-container {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
@@ -227,6 +302,50 @@
         <input type="text" id="searchInput" placeholder="🔍 Coin ara... (ör: BTC, ETH, BNB)">
     </div>
 
+    <div class="filter-container">
+        <div class="filter-group">
+            <label>🎯 ATL1 (0.1x) Filtresi</label>
+            <select id="filterATL1">
+                <option value="all">Tümü</option>
+                <option value="0-5">0% ile 5% arası</option>
+                <option value="5-10">5% ile 10% arası</option>
+                <option value="10-20">10% ile 20% arası</option>
+                <option value="20-50">20% ile 50% arası</option>
+                <option value="50+">50%'den fazla</option>
+                <option value="negative">Negatif (Altında)</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>🎯 ATL2 (0.01x) Filtresi</label>
+            <select id="filterATL2">
+                <option value="all">Tümü</option>
+                <option value="0-5">0% ile 5% arası</option>
+                <option value="5-10">5% ile 10% arası</option>
+                <option value="10-20">10% ile 20% arası</option>
+                <option value="20-50">20% ile 50% arası</option>
+                <option value="50+">50%'den fazla</option>
+                <option value="negative">Negatif (Altında)</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>🎯 ATL3 (0.001x) Filtresi</label>
+            <select id="filterATL3">
+                <option value="all">Tümü</option>
+                <option value="0-5">0% ile 5% arası</option>
+                <option value="5-10">5% ile 10% arası</option>
+                <option value="10-20">10% ile 20% arası</option>
+                <option value="20-50">20% ile 50% arası</option>
+                <option value="50+">50%'den fazla</option>
+                <option value="negative">Negatif (Altında)</option>
+            </select>
+        </div>
+
+        <button id="resetFilters" class="reset-btn">🔄 Filtreleri Sıfırla</button>
+        <div class="coin-count">Gösterilen: <span id="coinCount">0</span> / <span id="totalCount">0</span></div>
+    </div>
+
     <div class="table-container">
         <table>
             <thead>
@@ -259,11 +378,62 @@
     <script>
         let allCoins = [];
         const POPULAR_COINS = [
-            'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'ADAUSDT', 'DOGEUSDT', 'MATICUSDT',
-            'DOTUSDT', 'LTCUSDT', 'AVAXUSDT', 'LINKUSDT', 'ATOMUSDT', 'ETCUSDT', 'XLMUSDT', 'UNIUSDT',
-            'ALGOUSDT', 'VETUSDT', 'FILUSDT', 'TRXUSDT', 'NEARUSDT', 'APTUSDT', 'ARBUSDT', 'OPUSDT',
-            'INJUSDT', 'SUIUSDT', 'PEPEUSDT', 'SHIBUSDT', 'FLOKIUSDT', 'BONKUSDT', 'AAVEUSDT', 'MKRUSDT'
+            // Top Market Cap
+            'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'ADAUSDT', 'DOGEUSDT', 'TRXUSDT',
+            'LINKUSDT', 'MATICUSDT', 'DOTUSDT', 'LTCUSDT', 'AVAXUSDT', 'ATOMUSDT', 'ETCUSDT', 'XLMUSDT',
+            'UNIUSDT', 'ALGOUSDT', 'VETUSDT', 'FILUSDT', 'NEARUSDT', 'APTUSDT', 'ARBUSDT', 'OPUSDT',
+            
+            // DeFi
+            'AAVEUSDT', 'MKRUSDT', 'CRVUSDT', 'COMPUSDT', 'SNXUSDT', 'YFIUSDT', 'SUSHIUSDT', '1INCHUSDT',
+            'BALUSDT', 'LRCUSDT', 'KAVAUSDT', 'RUNEUSDT', 'ALPHAUSDT', 'INJUSDT', 'PERPUSDT',
+            
+            // Layer 1 & 2
+            'SUIUSDT', 'FTMUSDT', 'ONEUSDT', 'HBARUSDT', 'ZILUSDT', 'ICXUSDT', 'IOTAUSDT', 'QTUMUSDT',
+            'ZECUSDT', 'DASHUSDT', 'WAVESUSDT', 'ONTUSDT', 'ZENUSDT', 'RVNUSDT', 'SCUSDT',
+            
+            // Gaming & Metaverse
+            'SANDUSDT', 'MANAUSDT', 'AXSUSDT', 'ENJUSDT', 'GALAUSDT', 'GMTUSDT', 'FLOWUSDT', 'THETAUSDT',
+            'CHZUSDT', 'IMXUSDT', 'APOUSDT', 'APEUSDT', 'MAGICUSDT',
+            
+            // Meme Coins
+            'PEPEUSDT', 'SHIBUSDT', 'FLOKIUSDT', 'BONKUSDT', 'WIFUSDT', 'BOMEUSDT', 'MEMEUSDT',
+            'DOGSUSDT', 'NEIROUSDT', 'MEWUSDT', '1000SATSUSDT',
+            
+            // AI & Data
+            'FETUSDT', 'AGIXUSDT', 'OCEANUSDT', 'GRTUSDT', 'RENDERUSDT', 'IQUSDT', 'NMRUSDT',
+            'ACHUSDT', 'PHBUSDT', 'AIUSDT', 'ARKMUSDT',
+            
+            // Infrastructure
+            'ROSEUSDT', 'MASKUSDT', 'STORJUSDT', 'ARUSDT', 'LDOUSDT', 'CFXUSDT', 'STXUSDT',
+            'CTKUSDT', 'COTIUSDT', 'CELRUSDT', 'CTSIUSDT', 'WOOUSDT', 'PENDLEUSDT',
+            
+            // Exchange Tokens
+            'CAKEUSDT', 'BAKEUSDT', 'VGXUSDT', 'BIGTIMEUSDT', 'RADUSDT',
+            
+            // Popular Altcoins
+            'BEAMXUSDT', 'WLDUSDT', 'IDUSDT', 'ORBSUSDT', 'JASMYUSDT', 'HIGHUSDT', 'BLURUSDT',
+            'CKBUSDT', 'KEYUSDT', 'LITUSDT', 'POWRUSDT', 'SLPUSDT', 'SFPUSDT', 'SKLUSDT',
+            'OGNUSDT', 'BTTCUSDT', 'STMXUSDT', 'DENTUSDT', 'WINUSDT', 'HOTUSDT', 'DOCKUSDT',
+            
+            // New Listings
+            'CYBERUSDT', 'MAVUSDT', 'EDUUSDT', 'SEIUSDT', 'TIAUSDT', 'PYTHUSDT', 'ACEUSDT',
+            'NFPUSDT', 'AIUSDT', 'XAIUSDT', 'MANTAUSDT', 'ALTUSDT', 'JUPUSDT', 'PORTALUSDT',
+            'PIXELUSDT', 'STRKUSDT', 'ENAUSDT', 'WUSDT', 'REZUSDT', 'BBUSDT', 'NOTUSDT',
+            'IOUSDT', 'OMNIUMUSDT', 'SAGAUSDT', 'TAOUSDT', 'ZKUSDT', 'ZROUSDT', 'LISTAUSDT',
+            'BANANAUSDT', 'TUSDT', 'SCRUSDT', 'EIGENUSDT', 'NEIROETHUSDT', 'HMSTRUSDT',
+            
+            // Additional Popular
+            'HFTUSDT', 'FTTUSDT', 'XVGUSDT', 'ARPAUSDT', 'TORNUSDT', 'SXPUSDT', 'MTLUSDT',
+            'ANTUSDT', 'DFUSDT', 'PONDUSDT', 'DEGOUSDT', 'BURGERUSDT', 'TLMUSDT', 'ADXUSDT',
+            'FIDAUSDT', 'BNTUSDT', 'PSGUSDT', 'JUVUSDT', 'ATMUSDT', 'ASRUSDT', 'ACMUSDT'
         ];
+
+        let currentFilters = {
+            search: '',
+            atl1: 'all',
+            atl2: 'all',
+            atl3: 'all'
+        };
 
         function calculateFib50(ath, atl) {
             return ath - ((ath - atl) * 0.5);
@@ -286,11 +456,26 @@
         async function fetchData() {
             try {
                 const promises = POPULAR_COINS.map(async (symbol) => {
-                    const response = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
-                    const data = await response.json();
+                    // Güncel fiyat al
+                    const tickerResponse = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
+                    const tickerData = await tickerResponse.json();
                     
-                    const price = parseFloat(data.lastPrice);
-                    const ath = parseFloat(data.highPrice);
+                    // ATH için tüm zamanların kline verilerini al (1 aylık periyotlar)
+                    const klinesResponse = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1M&limit=1000`);
+                    const klinesData = await klinesResponse.json();
+                    
+                    const price = parseFloat(tickerData.lastPrice);
+                    
+                    // Tüm kline verilerinden en yüksek fiyatı bul (ATH)
+                    let ath = 0;
+                    if (klinesData && klinesData.length > 0) {
+                        ath = Math.max(...klinesData.map(kline => parseFloat(kline[2]))); // index 2 = high price
+                    }
+                    
+                    // Eğer ATH bulunamadıysa veya çok düşükse, 24 saatlik high'ı kullan
+                    if (ath === 0 || price > ath) {
+                        ath = parseFloat(tickerData.highPrice);
+                    }
                     
                     const atl1 = ath * 0.1;
                     const atl2 = ath * 0.01;
@@ -340,6 +525,7 @@
                         <td colspan="12" class="loading">Sonuç bulunamadı</td>
                     </tr>
                 `;
+                document.getElementById('coinCount').textContent = '0';
                 return;
             }
 
@@ -374,6 +560,56 @@
                     <td class="fib-50">$${formatPrice(coin.fib50_3)}</td>
                 </tr>
             `).join('');
+
+            document.getElementById('coinCount').textContent = coins.length;
+            document.getElementById('totalCount').textContent = allCoins.length;
+        }
+
+        function matchesFilter(percent, filterValue) {
+            const p = parseFloat(percent);
+            
+            switch(filterValue) {
+                case 'all': return true;
+                case '0-5': return p >= 0 && p <= 5;
+                case '5-10': return p > 5 && p <= 10;
+                case '10-20': return p > 10 && p <= 20;
+                case '20-50': return p > 20 && p <= 50;
+                case '50+': return p > 50;
+                case 'negative': return p < 0;
+                default: return true;
+            }
+        }
+
+        function applyFilters() {
+            let filtered = allCoins;
+
+            // Arama filtresi
+            if (currentFilters.search) {
+                filtered = filtered.filter(coin => 
+                    coin.symbol.includes(currentFilters.search.toUpperCase())
+                );
+            }
+
+            // ATL filtreleri
+            if (currentFilters.atl1 !== 'all') {
+                filtered = filtered.filter(coin => 
+                    matchesFilter(coin.atl1Percent, currentFilters.atl1)
+                );
+            }
+
+            if (currentFilters.atl2 !== 'all') {
+                filtered = filtered.filter(coin => 
+                    matchesFilter(coin.atl2Percent, currentFilters.atl2)
+                );
+            }
+
+            if (currentFilters.atl3 !== 'all') {
+                filtered = filtered.filter(coin => 
+                    matchesFilter(coin.atl3Percent, currentFilters.atl3)
+                );
+            }
+
+            renderTable(filtered);
         }
 
         function updateTimestamp() {
@@ -383,11 +619,37 @@
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toUpperCase();
-            const filteredCoins = allCoins.filter(coin => 
-                coin.symbol.includes(searchTerm)
-            );
-            renderTable(filteredCoins);
+            currentFilters.search = e.target.value;
+            applyFilters();
+        });
+
+        document.getElementById('filterATL1').addEventListener('change', (e) => {
+            currentFilters.atl1 = e.target.value;
+            applyFilters();
+        });
+
+        document.getElementById('filterATL2').addEventListener('change', (e) => {
+            currentFilters.atl2 = e.target.value;
+            applyFilters();
+        });
+
+        document.getElementById('filterATL3').addEventListener('change', (e) => {
+            currentFilters.atl3 = e.target.value;
+            applyFilters();
+        });
+
+        document.getElementById('resetFilters').addEventListener('click', () => {
+            currentFilters = {
+                search: '',
+                atl1: 'all',
+                atl2: 'all',
+                atl3: 'all'
+            };
+            document.getElementById('searchInput').value = '';
+            document.getElementById('filterATL1').value = 'all';
+            document.getElementById('filterATL2').value = 'all';
+            document.getElementById('filterATL3').value = 'all';
+            applyFilters();
         });
 
         fetchData();
