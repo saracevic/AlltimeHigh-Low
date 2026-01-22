@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            background:  linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
             color: #fff;
             padding: 20px;
             min-height: 100vh;
@@ -48,7 +48,7 @@
             background: rgba(102, 126, 234, 0.1);
             padding: 20px 32px;
             border-radius:  16px;
-            margin-bottom:  28px;
+            margin-bottom: 28px;
             backdrop-filter: blur(25px);
             border: 1px solid rgba(102, 126, 234, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -82,10 +82,10 @@
 
         . search-box input {
             width: 100%;
-            padding: 20px 24px;
+            padding:  20px 24px;
             font-size: 1.1em;
             border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 14px;
+            border-radius:  14px;
             background: rgba(26, 31, 58, 0.6);
             color: #fff;
             backdrop-filter: blur(20px);
@@ -137,9 +137,9 @@
             background: rgba(15, 20, 25, 0.6);
             color: #fff;
             font-size: 0.98em;
-            font-weight:  500;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition:  all 0.3s ease;
         }
 
         .filter-group select:focus {
@@ -215,7 +215,7 @@
             font-weight:  800;
             font-size: 0.88em;
             letter-spacing: 1px;
-            border-bottom:  2px solid rgba(102, 126, 234, 0.4);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
             text-transform: uppercase;
             color: #c7d2fe;
         }
@@ -250,12 +250,12 @@
         }
 
         . ath-value {
-            font-weight:  700;
+            font-weight: 700;
             color: #10b981;
             font-size: 1.05em;
         }
 
-        .badge {
+        . badge {
             display: inline-block;
             padding: 7px 14px;
             border-radius:  22px;
@@ -293,7 +293,7 @@
             border: 5px solid rgba(102, 126, 234, 0.2);
             border-top: 5px solid #667eea;
             border-radius: 50%;
-            width: 55px;
+            width:  55px;
             height: 55px;
             animation: spin 0.9s linear infinite;
             margin: 0 auto 22px;
@@ -305,7 +305,7 @@
         }
 
         @media (max-width: 768px) {
-            .header h1 { font-size: 2. 2em; }
+            .header h1 { font-size: 2.2em; }
             th, td { padding: 14px 12px; font-size: 0.85em; }
             .filter-container { grid-template-columns: 1fr; }
         }
@@ -319,17 +319,17 @@
 <body>
     <div class="header">
         <h1>📊 Binance ATH/ATL Fibonacci Tracker Pro</h1>
-        <p>Profesyonel Kripto Analiz - Binance Gerçek ATH Verileri ile Fibonacci Hesaplama</p>
+        <p>Profesyonel Kripto Analiz - TradingView Logaritmik Fibonacci Hesaplama</p>
     </div>
 
     <div class="update-info">
-        <span><span class="status-dot"></span>Canlı Binance Verileri</span>
-        <span id="lastUpdate">Son Güncelleme: --: --: --</span>
+        <span><span class="status-dot"></span>Canlı Binance Verileri (Logaritmik Fib)</span>
+        <span id="lastUpdate">Son Güncelleme: --: --:--</span>
         <span id="nextUpdate">Sonraki:  15dk</span>
     </div>
 
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="🔍 Coin ara...  (ör: BTC, ETH, XLM, BNB)">
+        <input type="text" id="searchInput" placeholder="🔍 Coin ara...  (ör:  BTC, ETH, XLM, TRX, BNB)">
     </div>
 
     <div class="filter-container">
@@ -350,7 +350,7 @@
             <label>📍 ATL Seviyesi</label>
             <select id="filterLevel">
                 <option value="any">Herhangi Biri</option>
-                <option value="atl1">ATL1 (0.1x)</option>
+                <option value="atl1">ATL1 (0. 1x)</option>
                 <option value="atl2">ATL2 (0.01x)</option>
                 <option value="atl3">ATL3 (0.001x)</option>
             </select>
@@ -413,9 +413,10 @@
             level: 'any'
         };
 
-        function calculateFib50(high, low) {
-            // Fibonacci %50 = High - ((High - Low) × 0.5)
-            return high - ((high - low) * 0.5);
+        // LOGARİTMİK Fibonacci %50 hesaplama (TradingView tarzı)
+        function calculateFib50Logarithmic(high, low) {
+            // Geometrik ortalama = sqrt(high × low)
+            return Math.sqrt(high * low);
         }
 
         function calculatePercentage(current, target) {
@@ -432,11 +433,10 @@
             }
         }
 
-        // Binance'dan TÜM geçmiş verileri çekerek gerçek ATH/ATL bul
+        // Binance'dan TÜM geçmiş verileri çekerek gerçek ATH bul
         async function getRealATH(symbol) {
             try {
-                // Birden fazla timeframe'den veri çek ve birleştir
-                const intervals = ['1M', '1w', '1d']; // Aylık, haftalık, günlük
+                const intervals = ['1M', '1w', '1d'];
                 let allHighs = [];
                 
                 for (const interval of intervals) {
@@ -446,12 +446,11 @@
                     const data = await response.json();
                     
                     if (data && Array.isArray(data)) {
-                        const highs = data.map(kline => parseFloat(kline[2])); // High price
+                        const highs = data.map(kline => parseFloat(kline[2]));
                         allHighs = allHighs.concat(highs);
                     }
                 }
                 
-                // Tüm verilerden maksimum değeri bul
                 const ath = allHighs.length > 0 ? Math.max(...allHighs) : null;
                 return ath;
                 
@@ -478,7 +477,6 @@
                     try {
                         const coinSymbol = symbol.replace('USDT', '');
                         
-                        // Paralel olarak fiyat ve ATH çek
                         const [price, ath] = await Promise.all([
                             getCurrentPrice(symbol),
                             getRealATH(symbol)
@@ -491,11 +489,10 @@
                         const atl2 = ath * 0.01;
                         const atl3 = ath * 0.001;
                         
-                        // Fibonacci %50 seviyelerini DOĞRU hesapla
-                        // Fib50(ATH, ATL) = ATH - ((ATH - ATL) × 0.5)
-                        const fib50_1 = calculateFib50(ath, atl1);
-                        const fib50_2 = calculateFib50(ath, atl2);
-                        const fib50_3 = calculateFib50(ath, atl3);
+                        // LOGARİTMİK Fibonacci %50 seviyelerini hesapla
+                        const fib50_1 = calculateFib50Logarithmic(ath, atl1);
+                        const fib50_2 = calculateFib50Logarithmic(ath, atl2);
+                        const fib50_3 = calculateFib50Logarithmic(ath, atl3);
                         
                         return {
                             symbol: coinSymbol,
@@ -518,7 +515,7 @@
                 });
 
                 const results = await Promise.all(promises);
-                allCoins = results.filter(coin => coin !== null);
+                allCoins = results. filter(coin => coin !== null);
                 applyFilters();
                 updateTimestamp();
             } catch (error) {
@@ -550,7 +547,7 @@
                 <tr>
                     <td class="coin-name">${coin. symbol}</td>
                     <td class="price">$${formatPrice(coin.price)}</td>
-                    <td class="ath-value">$${formatPrice(coin.ath)}</td>
+                    <td class="ath-value">$${formatPrice(coin. ath)}</td>
                     
                     <td>$${formatPrice(coin.atl1)}</td>
                     <td>
@@ -587,8 +584,8 @@
             
             switch(filterValue) {
                 case 'all':  return true;
-                case '0-5':  return p >= 0 && p <= 5;
-                case '5-10': return p > 5 && p <= 10;
+                case '0-5': return p >= 0 && p <= 5;
+                case '5-10':  return p > 5 && p <= 10;
                 case '10-20': return p > 10 && p <= 20;
                 case '20-50': return p > 20 && p <= 50;
                 case '50+':  return p > 50;
@@ -631,7 +628,7 @@
         function updateTimestamp() {
             const now = new Date();
             document.getElementById('lastUpdate').textContent = 
-                `Son Güncelleme: ${now.toLocaleTimeString('tr-TR')}`;
+                `Son Güncelleme: ${now. toLocaleTimeString('tr-TR')}`;
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -640,7 +637,7 @@
         });
 
         document.getElementById('filterATL').addEventListener('change', (e) => {
-            currentFilters.atl = e.target.value;
+            currentFilters.atl = e. target.value;
             applyFilters();
         });
 
@@ -661,12 +658,9 @@
             applyFilters();
         });
 
-        // İlk yükleme
         fetchData();
-        // Her 15 dakikada bir güncelle
         setInterval(fetchData, 15 * 60 * 1000);
 
-        // Geri sayım
         let countdown = 15 * 60;
         setInterval(() => {
             countdown--;
